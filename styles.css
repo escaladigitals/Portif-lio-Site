@@ -26,6 +26,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+body.protected-view {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 img {
   display: block;
   width: 100%;
@@ -399,8 +404,13 @@ textarea {
   background: #e7e0d6;
 }
 
+.photo-frame img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .photo-frame.locked::before {
-  content: "TITA FOTOGRAFIA";
+  content: "TR SOCIAL";
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -416,22 +426,41 @@ textarea {
 }
 
 .photo-frame.locked::after {
-  content: "";
+  content: "TR SOCIAL  TR SOCIAL  TR SOCIAL  TR SOCIAL";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-image:
-    repeating-linear-gradient(
-      -22deg,
-      rgba(255, 255, 255, 0.16) 0 2px,
-      transparent 2px 82px
-    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.22);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 4;
+  text-align: center;
+  white-space: pre-wrap;
+  background-image: repeating-linear-gradient(
+    -22deg,
+    rgba(255, 255, 255, 0.2) 0 2px,
+    transparent 2px 76px
+  );
   pointer-events: none;
 }
 
 .photo-card.unlocked .photo-frame::before,
 .photo-card.unlocked .photo-frame::after {
   display: none;
+}
+
+body.privacy-mask .photo-frame.locked img {
+  filter: blur(18px);
+  opacity: 0.26;
+}
+
+body.privacy-mask .photo-frame.locked::before {
+  content: "Imagem protegida";
+  transform: none;
+  font-size: clamp(18px, 3vw, 30px);
 }
 
 .photo-meta {
@@ -641,6 +670,25 @@ textarea {
 .toast.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media print {
+  .photo-frame img {
+    visibility: hidden;
+  }
+
+  .photo-frame::before {
+    content: "Imagem protegida para visualizacao online";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #111;
+    background: #fff;
+    transform: none;
+    text-shadow: none;
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 920px) {

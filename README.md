@@ -1,4 +1,4 @@
-# Tita Fotografia
+# TR Social
 
 Site estatico de portfolio profissional para fotografa/videomaker, com galeria de fotos, marca d'agua visual, carrinho e simulacao de pagamento.
 
@@ -26,7 +26,8 @@ Abra o arquivo `index.html` no navegador.
 
 - Home visual com chamada de portfolio.
 - Secoes de portfolio, servicos e contato.
-- Galeria de cliente com fotos protegidas por marca d'agua.
+- Galeria de ensaios com fotos protegidas por marca d'agua.
+- Bloqueio basico de clique direito, arrastar imagem e impressao das fotos.
 - Upload local de novas fotos para demonstracao.
 - Selecao de fotos por cliente.
 - Carrinho com preco por foto.
@@ -42,3 +43,5 @@ Esta versao pode ser publicada no GitHub Pages, mas o GitHub Pages hospeda apena
 - liberar download dos originais somente apos confirmacao do pagamento.
 
 Enquanto estiver apenas no GitHub Pages, o fluxo de compra funciona como demonstracao visual. Para uso comercial real, recomendo manter este site como vitrine publica e conectar a galeria de clientes a uma API/backend separado.
+
+Importante: nenhum site consegue impedir 100% captura de tela feita pelo sistema operacional, celular ou extensoes do navegador. A protecao real e publicar somente previews em baixa resolucao com marca d'agua e manter os arquivos finais privados ate o pagamento.

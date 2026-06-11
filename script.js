@@ -68,10 +68,17 @@ const toast = document.querySelector("[data-toast]");
 document.querySelector("[data-open-cart]").addEventListener("click", openCart);
 document.querySelector("[data-close-cart]").addEventListener("click", closeCart);
 document.querySelector("[data-checkout]").addEventListener("click", checkout);
+document.body.classList.add("protected-view");
 
 cartDrawer.addEventListener("click", (event) => {
   if (event.target === cartDrawer) closeCart();
 });
+
+document.addEventListener("contextmenu", protectMedia);
+document.addEventListener("dragstart", protectMedia);
+document.addEventListener("keydown", protectShortcuts);
+window.addEventListener("blur", () => document.body.classList.add("privacy-mask"));
+window.addEventListener("focus", () => document.body.classList.remove("privacy-mask"));
 
 filter.addEventListener("change", (event) => {
   state.filter = event.target.value;
@@ -240,6 +247,26 @@ function previewPhoto(id) {
   const photo = state.photos.find((item) => item.id === id);
   if (!photo) return;
   showToast(state.unlocked.has(id) ? `${photo.title}: arquivo liberado.` : `${photo.title}: pre-visualizacao com marca d'agua.`);
+}
+
+function protectMedia(event) {
+  if (!event.target.closest(".photo-frame, .portfolio-grid, .hero")) return;
+  event.preventDefault();
+  showToast("Imagem protegida. A versao sem marca d'agua e liberada apos o pagamento.");
+}
+
+function protectShortcuts(event) {
+  const key = event.key.toLowerCase();
+  const blocked =
+    (event.ctrlKey && key === "s") ||
+    (event.ctrlKey && key === "p") ||
+    key === "printscreen" ||
+    (event.ctrlKey && event.shiftKey && ["i", "j", "c"].includes(key));
+
+  if (!blocked) return;
+
+  event.preventDefault();
+  showToast("Conteudo protegido para clientes. Finalize a compra para receber o arquivo.");
 }
 
 function openCart() {
